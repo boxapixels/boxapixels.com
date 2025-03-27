@@ -1,0 +1,47 @@
+name: Build and Deploy to FTP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the repo
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Set up Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'  # Matches your devcontainer's v20.19.0
+
+      # Install dependencies
+      - name: Install Dependencies
+        run: npm install
+
+      # Build Tailwind CSS
+      - name: Build CSS
+        run: npx tailwindcss -i ./styles.css -o ./dist/styles.css
+
+      # Deploy via FTP
+      - name: Deploy to FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp  # Changed from sftp to ftp
+          port: ${{ secrets.FTP_PORT }}  # Usually 21 for FTP
+          local-dir: ./
+          server-dir: ${{ secrets.FTP_PATH }}
+          exclude: |
+            **/node_modules/**
+            **/.git/**
+            *.md
+            *.json
+            *.js
+            *.css  # Exclude source CSS, only deploy dist/styles.css
