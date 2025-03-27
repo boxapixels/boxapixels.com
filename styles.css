@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .section-heading {
+    @apply text-2xl font-semibold text-gray-800 mb-4 bg-gray-100 px-2 py-1 rounded;
+  }
+
+  .tech-tag {
+    @apply text-xs text-white bg-gray-500 px-2 py-1 rounded-full;
+  }
+
+  .bullet-item {
+    @apply flex items-start;
+  }
+
+  .bullet-point {
+    @apply text-blue-500 mr-2;
+  }
+
+  .section-container {
+    @apply p-8;
+  }
+}
+
