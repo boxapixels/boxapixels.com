@@ -1,8 +1,10 @@
 // See https://containers.dev/implementors/json_reference/ for configuration reference
 {
-	"name": "Untitled Node.js project",
+	"name": "Boxapixels.com website",
 	"build": {
 		"dockerfile": "Dockerfile"
 	},
-  "remoteUser": "node"
+  "remoteUser": "node",
+  "runArgs": ["--name=boxapixels.com"]
+
 }
